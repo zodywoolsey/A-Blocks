@@ -30,7 +30,5 @@
     "url": "https://github.com/zodywoolsey/A-Blocks/issues"
   },
   "homepage": "https://github.com/zodywoolsey/A-Blocks#readme",
-  "dependencies": {
-    "blockly": "^2.20190722.1"
-  }
+  "dependencies": {}
 }
