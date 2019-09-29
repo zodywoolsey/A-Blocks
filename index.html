@@ -7,16 +7,26 @@
 
 <body>
 <a-scene>
-    
-    <a-camera cursor="rayOrigin: mouse">
-          </a-camera>
-    <a-box id="box" onclick="document.querySelector('#box').setAttribute('position', '0 0 -4')" style="--position: 0 0 -5"></a-box>
+    <a-sky color="grey"></a-sky>
+    <a-camera cursor="rayOrigin: mouse"></a-camera>
+    <a-entity oculus-touch-controls="hand: left"></a-entity>
+    <a-entity oculus-touch-controls="hand: right"></a-entity>
+    <a-box  id="boxToClick" position="0 0 -5" color="red"></a-box>
 </a-scene>
+<div style="z-index: 999; position: absolute; float: middle;">
+test
+</div>
 </body>
 
 <script>
 
+function boxMove(){
+    let pos = this.getAttribute('position');
+    let newPos = pos-.1;
+    this.setAttribute('position', `${pos['x']} ${pos['y']} ${pos['z']-.1}` );
+}
 
+document.querySelector('#boxToClick').addEventListener('click',boxMove)
 
 </script>
 
