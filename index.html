@@ -7,12 +7,13 @@
 
 <body>
 <a-scene>
-    <a-sky color="grey"></a-sky>
+    <a-sky color="#964"></a-sky>
     <a-camera cursor="rayOrigin: mouse"></a-camera>
     <a-entity oculus-touch-controls="hand: left"></a-entity>
     <a-entity oculus-touch-controls="hand: right"></a-entity>
-    <a-box  id="boxToClick" position="0 0 -5" color="red"></a-box>
-    <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0"></a-gltf-model>
+    <a-box  id="boxToClick" position="1 .5 0" color="red"></a-box>
+    <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model>
+    <a-light position="-3 2 1" type="point"></a-light>
 </a-scene>
 <div style="z-index: 999; position: absolute; float: middle;">
 test
