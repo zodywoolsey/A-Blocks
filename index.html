@@ -3,21 +3,29 @@
 
 <head>
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="./node_modules/split.js/dist/split.min.js"></script>
 </head>
 
 <body>
-<a-scene>
-    <a-sky color="#964"></a-sky>
-    <a-camera cursor="rayOrigin: mouse"></a-camera>
-    <a-entity oculus-touch-controls="hand: left"></a-entity>
-    <a-entity oculus-touch-controls="hand: right"></a-entity>
-    <a-box  id="boxToClick" position="1 .5 0" color="red"></a-box>
-    <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model>
-    <a-light position="-3 2 1" type="point"></a-light>
-</a-scene>
-<div style="z-index: 999; position: absolute; float: middle;">
-test
-</div>
+    <div id="leftPane" class="split" style="float: left; ">
+        <div id="leftTop" style="min-height: 10em;">
+            <a-scene embedded physics="debug:false;" style="">
+                <a-sky color="#964"></a-sky>
+                <a-camera cursor="rayOrigin: mouse"></a-camera>
+                <a-entity oculus-touch-controls="hand: left"></a-entity>
+                <a-entity oculus-touch-controls="hand: right"></a-entity>
+                <a-box  id="boxToClick" position="1 .5 0" color="red"></a-box>
+                <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model>
+                <a-light position="-3 2 1" type="point"></a-light>
+            </a-scene>
+        </div>
+        <div id="leftBot">
+            <p>Some tool stuff will go here</p>
+        </div>
+    </div>
+    <div id="rightPane" style="float: right; ">
+        <p>blockly junk will go here.</p>
+    </div>
 </body>
 
 <script>
@@ -27,6 +35,11 @@ function boxMove(){
     let newPos = pos-.1;
     this.setAttribute('position', `${pos['x']} ${pos['y']} ${pos['z']-.1}` );
 }
+
+Split(['#leftPane','#rightPane'], {
+    sizes: [45, 45],
+    gutterAlign: 'center',
+});
 
 document.querySelector('#boxToClick').addEventListener('click',boxMove)
 
