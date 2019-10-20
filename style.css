@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-size: 26px;
+}
+
+.pane {
+    width: 100%;
+    height: 100%;
+    border: 1px solid;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.gutter {
+    cursor: s-resize;
+    height: 100%;
+    background-color: blue;
+}
