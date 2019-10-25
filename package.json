@@ -33,6 +33,7 @@
   "dependencies": {
     "blockly": "^2.20190722.1",
     "split": "^1.0.1",
-    "split.js": "^1.5.11"
+    "split.js": "^1.5.11",
+    "three.js": "^0.77.1"
   }
 }
