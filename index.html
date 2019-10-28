@@ -6,7 +6,9 @@
     <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-    <script src="./blocks/string_length.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+    <script src="./blocks/blocks.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,10 +18,13 @@
             <div class="pane leftTop">
                 <a-scene class="pane" embedded physics="debug:false;" cursor="rayOrigin: mouse">
                     <a-sky color="#964"></a-sky>
-                    <a-camera></a-camera>
-                    <a-entity oculus-touch-controls="hand: left"></a-entity>
-                    <a-entity oculus-touch-controls="hand: right"></a-entity>
-                    <a-box  id="boxToClick" position="0 1 -3" color="red" dynamic-body></a-box>
+                    <a-camera>
+                        <a-cursor></a-cursor>
+                    </a-camera>
+                    <!-- <a-entity tracked-controls="hand: left"></a-entity>
+                    <a-entity tracked-controls="hand: right"></a-entity> -->
+                    <a-entity sphere-collider super-hands hand-controls='left'></a-entity>
+                    <a-entity sphere-collider super-hands hand-controls='right'></a-entity>
                     <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
                     <!-- <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model> -->
                     <a-light position="-3 2 1" type="point"></a-light>
@@ -37,7 +42,7 @@
 
 <!-- Blockly Toolbox -->
 <xml id="toolbox" style="display: none">
-    <block type='string_length'></block>
+    <block type='transform'></block>
 </xml>
 
 <script>
@@ -65,21 +70,55 @@
     let boxCounter = 1;
     let boxSpawner = setInterval( ()=>{
         let tmpBox = document.createElement('a-box');
-        tmpBox.setAttribute('position',`${Math.random()} ${100*Math.random()} -10`);
+        tmpboxes = [];
+        tmpboxes.push(tmpBox.cloneNode());
+        // tmpboxes.push(tmpBox.cloneNode());
+        // tmpboxes.push(tmpBox.cloneNode());
+        // tmpboxes.push(tmpBox.cloneNode());
+        // tmpboxes.push(tmpBox.cloneNode());
+        // tmpboxes.push(tmpBox.cloneNode());
+        tmpboxes[0].setAttribute('position',`0 ${boxCounter} -20`);
+        // tmpboxes[1].setAttribute('position',`0 ${boxCounter} -21`);
+        // tmpboxes[2].setAttribute('position',`1 ${boxCounter} -21`);
+        // tmpboxes[3].setAttribute('position',`1 ${boxCounter} -20`);
+        // tmpboxes[4].setAttribute('position',`-1 ${boxCounter} -20`);
+        // tmpboxes[5].setAttribute('position',`-1 ${boxCounter} -21`);
+
+        tmpboxes[0].setAttribute('scale', '1 1 1');
+        // tmpboxes[1].setAttribute('scale', '1 1 1');
+        // tmpboxes[2].setAttribute('scale', '1 1 1');
+        // tmpboxes[3].setAttribute('scale', '1 1 1');
+        // tmpboxes[4].setAttribute('scale', '1 1 1');
+        // tmpboxes[5].setAttribute('scale', '1 1 1');
+
+        
         if(boxCounter%100 == 0){
             //tmpBox.setAttribute('scale','4 4 4');
+                document.querySelectorAll('a-box').forEach( (box)=>{
+                    box.setAttribute('dynamic-body','');
+                    box.body.mass = .01;
+                })
             clearInterval(boxSpawner);
         }
-        tmpBox.setAttribute('dynamic-body','');
-        aScene.appendChild(tmpBox);
+        // tmpboxes[1].setAttribute('dynamic-body','');
+        // tmpboxes[2].setAttribute('dynamic-body','');
+        // tmpboxes[3].setAttribute('dynamic-body','');
+        // tmpboxes[4].setAttribute('dynamic-body','');
+        // tmpboxes[5].setAttribute('dynamic-body','');
+
+        tmpboxes[0].addEventListener('click',boxMove);
+
+        aScene.appendChild(tmpboxes[0]);
+        // aScene.appendChild(tmpboxes[1]);
+        // aScene.appendChild(tmpboxes[2]);
+        // aScene.appendChild(tmpboxes[3]);
+        // aScene.appendChild(tmpboxes[4]);
+        // aScene.appendChild(tmpboxes[5]);
+
+        
+
         boxCounter++;
-    }, 100 )
-
-    function boxMove(e){
-        let pos = e.target.getAttribute('position');
-        e.target.setAttribute('position', `${pos['x']} ${pos['y']} ${pos['z']-.1}` );
-    }
-
+    }, 10 )
 
     Split(['.left','.right'],{
         direction: 'horizontal',
@@ -110,8 +149,22 @@
             blocklyResize();
     });
 
-    // document.querySelector('#boxToClick').addEventListener('mouseenter',boxMove)
+    function boxMove(e){
+            // e.target.body.mass = 10;
+            // e.target.body.velocity.y += 10;
+            e.target.body.mass = -10;
+            e.target.body.velocity.y -=10;
+    }
 
+    aScene.addEventListener('contextmenu',(e)=>{
+        e.preventDefault();
+        
+    })
+
+    
+
+    //let box = document.querySelector('#boxToClick');
+    //box.addEventListener('click',boxMove);
 </script>
 
 </html>
