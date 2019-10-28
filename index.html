@@ -5,6 +5,8 @@
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="./blocks/string_length.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -27,63 +29,88 @@
                 <p>Some tool stuff will go here</p>
             </div>
         </div>
-        <div class="pane right">
+        <div class="pane right" id="blocklyArea">
+            <div id="blocklyDiv" style="height: 100%"></div>
         </div>
     </div>
 </body>
 
+<!-- Blockly Toolbox -->
+<xml id="toolbox" style="display: none">
+    <block type='string_length'></block>
+</xml>
+
 <script>
-
-
-let aCanvas = document.querySelector('a-scene canvas');
-let aScene = document.querySelector('a-scene');
-let boxCounter = 1;
-let boxSpawner = setInterval( ()=>{
-    let tmpBox = document.createElement('a-box');
-    tmpBox.setAttribute('position',`${Math.random()} ${100*Math.random()} -10`);
-    if(boxCounter%100 == 0){
-        //tmpBox.setAttribute('scale','4 4 4');
-        clearInterval(boxSpawner);
+    let blocklyArea = document.querySelector('#blocklyArea');
+    let blocklyDiv = document.querySelector('#blocklyDiv');
+    let workspace = Blockly.inject('blocklyDiv', {toolbox: document.querySelector('#toolbox')});
+    let blocklyResize = function(){ 
+        let element = blocklyArea; 
+        // let x = 0; 
+        // let y = 0;
+        // do {
+        //     x += element.offsetLeft; 
+        //     y += element.offsetTop; 
+        //     element = element.offsetParent;
+        // }while (element);
+        // blocklyDiv.style.left = `${x}px`;
+        // blocklyDiv.style.top = `${y}px`;
+        // blocklyDiv.style.width = `${blocklyArea.offsetWidth}px`;
+        // blocklyDiv.style.height = `${blocklyArea.offSetHeight}px`;
+        Blockly.svgResize(workspace);
     }
-    tmpBox.setAttribute('dynamic-body','');
-    aScene.appendChild(tmpBox);
-    boxCounter++;
-}, 100 )
 
-function boxMove(e){
-    let pos = e.target.getAttribute('position');
-    e.target.setAttribute('position', `${pos['x']} ${pos['y']} ${pos['z']-.1}` );
-}
+    let aCanvas = document.querySelector('a-scene canvas');
+    let aScene = document.querySelector('a-scene');
+    let boxCounter = 1;
+    let boxSpawner = setInterval( ()=>{
+        let tmpBox = document.createElement('a-box');
+        tmpBox.setAttribute('position',`${Math.random()} ${100*Math.random()} -10`);
+        if(boxCounter%100 == 0){
+            //tmpBox.setAttribute('scale','4 4 4');
+            clearInterval(boxSpawner);
+        }
+        tmpBox.setAttribute('dynamic-body','');
+        aScene.appendChild(tmpBox);
+        boxCounter++;
+    }, 100 )
 
-
-Split(['.left','.right'],{
-    direction: 'horizontal',
-    onDrag: function(){
-        aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
-        aScene.camera.updateProjectionMatrix();
-        aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
-        aScene.components.cursor.updateCanvasBounds();
+    function boxMove(e){
+        let pos = e.target.getAttribute('position');
+        e.target.setAttribute('position', `${pos['x']} ${pos['y']} ${pos['z']-.1}` );
     }
-});
 
-let leftPanes = Split(['.leftTop','.leftBot'],{
-    direction: 'vertical',
-    onDrag: function(){
-        aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
-        aScene.camera.updateProjectionMatrix();
-        aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
-        aScene.components.cursor.updateCanvasBounds();
-    },
-});
 
-window.addEventListener('resize',function(){
-        aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
-        aScene.camera.updateProjectionMatrix();
-        aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
-        aScene.components.cursor.updateCanvasBounds();
-});
+    Split(['.left','.right'],{
+        direction: 'horizontal',
+        onDrag: function(){
+            aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
+            aScene.camera.updateProjectionMatrix();
+            aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
+            aScene.components.cursor.updateCanvasBounds();
+            blocklyResize();
+        }
+    });
 
-// document.querySelector('#boxToClick').addEventListener('mouseenter',boxMove)
+    let leftPanes = Split(['.leftTop','.leftBot'],{
+        direction: 'vertical',
+        onDrag: function(){
+            aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
+            aScene.camera.updateProjectionMatrix();
+            aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
+            aScene.components.cursor.updateCanvasBounds();
+        },
+    });
+
+    window.addEventListener('resize',function(){
+            aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
+            aScene.camera.updateProjectionMatrix();
+            aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
+            aScene.components.cursor.updateCanvasBounds();
+            blocklyResize();
+    });
+
+    // document.querySelector('#boxToClick').addEventListener('mouseenter',boxMove)
 
 </script>
 
