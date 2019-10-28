@@ -18,13 +18,13 @@
             <div class="pane leftTop">
                 <a-scene class="pane" embedded physics="debug:false;" cursor="rayOrigin: mouse">
                     <a-sky color="#964"></a-sky>
-                    <a-camera>
-                        <a-cursor></a-cursor>
-                    </a-camera>
+                    <a-entity>
+                      <a-camera></a-camera>
+                      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+                      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
+                    </a-entity>
                     <!-- <a-entity tracked-controls="hand: left"></a-entity>
                     <a-entity tracked-controls="hand: right"></a-entity> -->
-                    <a-entity sphere-collider super-hands hand-controls='left'></a-entity>
-                    <a-entity sphere-collider super-hands hand-controls='right'></a-entity>
                     <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
                     <!-- <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model> -->
                     <a-light position="-3 2 1" type="point"></a-light>
@@ -77,7 +77,7 @@
         // tmpboxes.push(tmpBox.cloneNode());
         // tmpboxes.push(tmpBox.cloneNode());
         // tmpboxes.push(tmpBox.cloneNode());
-        tmpboxes[0].setAttribute('position',`0 ${boxCounter} -20`);
+        tmpboxes[0].setAttribute('position',`0 ${boxCounter+2} -10`);
         // tmpboxes[1].setAttribute('position',`0 ${boxCounter} -21`);
         // tmpboxes[2].setAttribute('position',`1 ${boxCounter} -21`);
         // tmpboxes[3].setAttribute('position',`1 ${boxCounter} -20`);
@@ -92,11 +92,11 @@
         // tmpboxes[5].setAttribute('scale', '1 1 1');
 
         
-        if(boxCounter%100 == 0){
+        if(boxCounter%50 == 0){
             //tmpBox.setAttribute('scale','4 4 4');
                 document.querySelectorAll('a-box').forEach( (box)=>{
                     box.setAttribute('dynamic-body','');
-                    box.body.mass = .01;
+                    box.body.mass = .1;
                 })
             clearInterval(boxSpawner);
         }
@@ -152,8 +152,9 @@
     function boxMove(e){
             // e.target.body.mass = 10;
             // e.target.body.velocity.y += 10;
-            e.target.body.mass = -10;
-            e.target.body.velocity.y -=10;
+            e.target.body.mass = -20;
+            e.target.body.velocity.y -=20;
+            setTimeout( ()=>{e.target.body.mass = 5;},500 )
     }
 
     aScene.addEventListener('contextmenu',(e)=>{
