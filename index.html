@@ -20,8 +20,8 @@
                     <a-sky color="#964"></a-sky>
                     <a-entity>
                       <a-camera></a-camera>
-                      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
-                      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
+                      <a-entity box-collider="" super-hands hand-controls="left"></a-entity>
+                      <a-entity box-collider="" super-hands hand-controls="right"></a-entity>
                     </a-entity>
                     <!-- <a-entity tracked-controls="hand: left"></a-entity>
                     <a-entity tracked-controls="hand: right"></a-entity> -->
@@ -77,14 +77,14 @@
         // tmpboxes.push(tmpBox.cloneNode());
         // tmpboxes.push(tmpBox.cloneNode());
         // tmpboxes.push(tmpBox.cloneNode());
-        tmpboxes[0].setAttribute('position',`0 ${boxCounter+2} -10`);
+        tmpboxes[0].setAttribute('position',`0 ${(boxCounter/4)+2} -2`);
         // tmpboxes[1].setAttribute('position',`0 ${boxCounter} -21`);
         // tmpboxes[2].setAttribute('position',`1 ${boxCounter} -21`);
         // tmpboxes[3].setAttribute('position',`1 ${boxCounter} -20`);
         // tmpboxes[4].setAttribute('position',`-1 ${boxCounter} -20`);
         // tmpboxes[5].setAttribute('position',`-1 ${boxCounter} -21`);
 
-        tmpboxes[0].setAttribute('scale', '1 1 1');
+        tmpboxes[0].setAttribute('scale', '.25 .25 .25');
         // tmpboxes[1].setAttribute('scale', '1 1 1');
         // tmpboxes[2].setAttribute('scale', '1 1 1');
         // tmpboxes[3].setAttribute('scale', '1 1 1');
@@ -131,7 +131,7 @@
         }
     });
 
-    let leftPanes = Split(['.leftTop','.leftBot'],{
+    Split(['.leftTop','.leftBot'],{
         direction: 'vertical',
         onDrag: function(){
             aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
@@ -152,8 +152,7 @@
     function boxMove(e){
             // e.target.body.mass = 10;
             // e.target.body.velocity.y += 10;
-            e.target.body.mass = -20;
-            e.target.body.velocity.y -=20;
+            e.target.body.mass = -10;
             setTimeout( ()=>{e.target.body.mass = 5;},500 )
     }
 
