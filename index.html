@@ -12,10 +12,15 @@
 <body>
 <a-scene class="pane" physics="debug:false;">
     <a-sky color="#964"></a-sky>
-    <a-entity>
+    <!-- <a-entity>
         <a-camera></a-camera>
         <a-entity laser-controls="hand: right" raycaster='objects: a-box' oculus-touch-controls></a-entity>
         <a-entity laser-controls="hand: left" raycaster='objects: a-box' oculus-touch-controls></a-entity>
+    </a-entity> -->
+    <a-entity>
+      <a-camera></a-camera>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+      <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
     </a-entity>
     <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
     <a-light position="-3 2 1" type="point"></a-light>
