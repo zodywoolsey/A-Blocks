@@ -32,6 +32,7 @@
   "homepage": "https://github.com/zodywoolsey/A-Blocks#readme",
   "dependencies": {
     "blockly": "^2.20190722.1",
+    "express": "^4.17.1",
     "split": "^1.0.1",
     "split.js": "^1.5.11",
     "three.js": "^0.77.1"
