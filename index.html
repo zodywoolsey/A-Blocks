@@ -1,169 +1,27 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
     <script src="./blocks/blocks.js"></script>
-    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="content">
-        <div class="pane left">
-            <div class="pane leftTop">
-                <a-scene class="pane" embedded physics="debug:false;">
-                    <a-sky color="#964"></a-sky>
-                    <a-entity>
-                      <a-camera></a-camera>
-                      <a-entity laser-controls="hand: right" raycaster='objects: a-box' oculus-touch-controls></a-entity>
-                      <a-entity laser-controls="hand: left" raycaster='objects: a-box' oculus-touch-controls></a-entity>
-                    </a-entity>
-                    <!-- <a-entity tracked-controls="hand: left"></a-entity>
-                    <a-entity tracked-controls="hand: right"></a-entity> -->
-                    <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
-                    <!-- <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model> -->
-                    <a-light position="-3 2 1" type="point"></a-light>
-                </a-scene>
-            </div>
-            <div class="pane leftBot">
-                <p>Some tool stuff will go here</p>
-            </div>
-        </div>
-        <div class="pane right" id="blocklyArea">
-            <div id="blocklyDiv" style="height: 100%"></div>
-        </div>
-    </div>
+<a-scene class="pane" physics="debug:false;">
+    <a-sky color="#964"></a-sky>
+    <a-entity>
+        <a-camera></a-camera>
+        <a-entity laser-controls="hand: right" raycaster='objects: a-box' oculus-touch-controls></a-entity>
+        <a-entity laser-controls="hand: left" raycaster='objects: a-box' oculus-touch-controls></a-entity>
+    </a-entity>
+    <!-- <a-entity tracked-controls="hand: left"></a-entity>
+    <a-entity tracked-controls="hand: right"></a-entity> -->
+    <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
+    <!-- <a-gltf-model src="aframeDemoScene.gltf" rotation="-90 0 0" scale="1 1 1"></a-gltf-model> -->
+    <a-light position="-3 2 1" type="point"></a-light>
+</a-scene>
 </body>
-
-<!-- Blockly Toolbox -->
-<xml id="toolbox" style="display: none">
-    <block type='transform'></block>
-</xml>
-
-<script>
-    let blocklyArea = document.querySelector('#blocklyArea');
-    let blocklyDiv = document.querySelector('#blocklyDiv');
-    let workspace = Blockly.inject('blocklyDiv', {toolbox: document.querySelector('#toolbox')});
-    let blocklyResize = function(){
-        let element = blocklyArea;
-        // let x = 0;
-        // let y = 0;
-        // do {
-        //     x += element.offsetLeft;
-        //     y += element.offsetTop;
-        //     element = element.offsetParent;
-        // }while (element);
-        // blocklyDiv.style.left = `${x}px`;
-        // blocklyDiv.style.top = `${y}px`;
-        // blocklyDiv.style.width = `${blocklyArea.offsetWidth}px`;
-        // blocklyDiv.style.height = `${blocklyArea.offSetHeight}px`;
-        Blockly.svgResize(workspace);
-    }
-
-    let aCanvas = document.querySelector('a-scene canvas');
-    let aScene = document.querySelector('a-scene');
-    let boxCounter = 1;
-    let boxSpawner = setInterval( ()=>{
-        let tmpBox = document.createElement('a-box');
-        tmpboxes = [];
-        tmpboxes.push(tmpBox.cloneNode());
-        // tmpboxes.push(tmpBox.cloneNode());
-        // tmpboxes.push(tmpBox.cloneNode());
-        // tmpboxes.push(tmpBox.cloneNode());
-        // tmpboxes.push(tmpBox.cloneNode());
-        // tmpboxes.push(tmpBox.cloneNode());
-        tmpboxes[0].setAttribute('position',`0 ${(boxCounter/4)+2} -2`);
-        // tmpboxes[1].setAttribute('position',`0 ${boxCounter} -21`);
-        // tmpboxes[2].setAttribute('position',`1 ${boxCounter} -21`);
-        // tmpboxes[3].setAttribute('position',`1 ${boxCounter} -20`);
-        // tmpboxes[4].setAttribute('position',`-1 ${boxCounter} -20`);
-        // tmpboxes[5].setAttribute('position',`-1 ${boxCounter} -21`);
-
-        tmpboxes[0].setAttribute('scale', '.25 .25 .25');
-        // tmpboxes[1].setAttribute('scale', '1 1 1');
-        // tmpboxes[2].setAttribute('scale', '1 1 1');
-        // tmpboxes[3].setAttribute('scale', '1 1 1');
-        // tmpboxes[4].setAttribute('scale', '1 1 1');
-        // tmpboxes[5].setAttribute('scale', '1 1 1');
-
-
-        if(boxCounter%50 == 0){
-            //tmpBox.setAttribute('scale','4 4 4');
-                document.querySelectorAll('a-box').forEach( (box)=>{
-                    box.setAttribute('dynamic-body','');
-                    box.body.mass = .1;
-                })
-            clearInterval(boxSpawner);
-        }
-        // tmpboxes[1].setAttribute('dynamic-body','');
-        // tmpboxes[2].setAttribute('dynamic-body','');
-        // tmpboxes[3].setAttribute('dynamic-body','');
-        // tmpboxes[4].setAttribute('dynamic-body','');
-        // tmpboxes[5].setAttribute('dynamic-body','');
-
-        tmpboxes[0].addEventListener('click',boxMove);
-
-        aScene.appendChild(tmpboxes[0]);
-        // aScene.appendChild(tmpboxes[1]);
-        // aScene.appendChild(tmpboxes[2]);
-        // aScene.appendChild(tmpboxes[3]);
-        // aScene.appendChild(tmpboxes[4]);
-        // aScene.appendChild(tmpboxes[5]);
-
-
-
-        boxCounter++;
-    }, 10 )
-
-    Split(['.left','.right'],{
-        direction: 'horizontal',
-        onDrag: function(){
-            aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
-            aScene.camera.updateProjectionMatrix();
-            aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
-            aScene.components.cursor.updateCanvasBounds();
-            blocklyResize();
-        }
-    });
-
-    Split(['.leftTop','.leftBot'],{
-        direction: 'vertical',
-        onDrag: function(){
-            aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
-            aScene.camera.updateProjectionMatrix();
-            aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
-            aScene.components.cursor.updateCanvasBounds();
-        },
-    });
-
-    window.addEventListener('resize',function(){
-            aScene.camera.aspect = aScene.clientWidth/aScene.clientHeight;
-            aScene.camera.updateProjectionMatrix();
-            aScene.renderer.setSize(aScene.clientWidth,aScene.clientHeight);
-            aScene.components.cursor.updateCanvasBounds();
-            blocklyResize();
-    });
-
-    function boxMove(e){
-            // e.target.body.mass = 10;
-            // e.target.body.velocity.y += 10;
-            e.target.body.mass = -10;
-            setTimeout( ()=>{e.target.body.mass = 5;},500 )
-    }
-
-    aScene.addEventListener('contextmenu',(e)=>{
-        e.preventDefault();
-
-    })
-
-
-
-    //let box = document.querySelector('#boxToClick');
-    //box.addEventListener('click',boxMove);
-</script>
-
 </html>
