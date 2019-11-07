@@ -10,7 +10,7 @@
     <script src="./blocks/blocks.js"></script>
 </head>
 <body>
-<a-scene class="pane" physics="debug:false;">
+<a-scene physics="debug:false;">
     <a-sky color="#964"></a-sky>
     <!-- <a-entity>
         <a-camera></a-camera>
@@ -22,6 +22,7 @@
       <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
       <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
     </a-entity>
+    <a-box dynamic-body grabbable draggable ></a-box>
     <a-gltf-model src="./models/podeum.gltf"></a-gltf-model>
     <a-box scale=".1 1.5 .1" position="1 .75 0"></a-box>
     <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
