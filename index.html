@@ -19,10 +19,10 @@
     </a-entity> -->
     <a-entity>
       <a-camera></a-camera>
-      <a-entity sphere-collider="" super-hands hand-controls="left"></a-entity>
-      <a-entity sphere-collider="" super-hands hand-controls="right"></a-entity>
+      <a-entity sphere-collider="a-box" super-hands hand-controls="left"></a-entity>
+      <a-entity sphere-collider="a-box" super-hands hand-controls="right"></a-entity>
     </a-entity>
-    <a-entity class="cube" mixin="cube" position="0.9990103398998756 0.1654911925147304 -0.9985728266294357" material="color:green" hoverable="" grabbable="" stretchable="" draggable="" event-set__hoveron="" event-set__hoveroff="" velocity="" dynamic-body="" shadow=""></a-entity>
+    <a-box position="1 1 -1" material="color:green" hoverable="" grabbable="" stretchable="" draggable="" event-set__hoveron="" event-set__hoveroff="" velocity="" dynamic-body="" shadow=""></a-box>
     <a-box scale=".1 1.5 .1" position="1 .75 0"></a-box>
     <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
     <a-light position="-3 2 1" type="point"></a-light>
