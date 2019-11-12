@@ -10,10 +10,7 @@
     <script src="./blocks/blocks.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
 <a-scene physics="iterations:20">
-=======
-<a-scene physics="debug:false;">
     <a-assets>
         <a-mixin id="cube" geometry="primitive: box; width: 0.25; height: 0.25; depth: 0.25"
         hoverable grabbable stretchable draggable
@@ -30,7 +27,6 @@
                      colliderEndEventProperty: clearedEls;">
         </a-mixin>
     </a-assets>
->>>>>>> eca2ea9dfa70cdbbc1ee02baf0a23b78941a1664
     <a-sky color="#964"></a-sky>
     <a-entity>
       <a-camera positon="0 1.6 0"></a-camera>
@@ -45,9 +41,6 @@
                 windows-motion-controls="hand: left">
       </a-entity>
     </a-entity>
-<<<<<<< HEAD
-    <a-box position="0 0 -1" grabbable="" dynamic-body=""></a-box>
-=======
     <a-entity class="cube" mixin="cube" position="0 .25 -.5" material="color: red"></a-entity>
     <a-entity class="cube" mixin="cube" position="0 .5 -.5" material="color: red"></a-entity>
     <a-entity class="cube" mixin="cube" position="0 .75 -.5" material="color: red"></a-entity>
@@ -60,7 +53,6 @@
     <a-entity class="cube" mixin="cube" position="-.25 .5 -.5" material="color: red"></a-entity>
     <a-entity class="cube" mixin="cube" position="-.25 .75 -.5" material="color: red"></a-entity>
     <a-entity class="cube" mixin="cube" position="-.25 1 -.5" material="color: red"></a-entity>
->>>>>>> eca2ea9dfa70cdbbc1ee02baf0a23b78941a1664
     <a-box scale=".1 1.5 .1" position="1 .75 0"></a-box>
     <a-plane color="#159" rotation="-90 0 0" scale="1000 1000 1" static-body></a-plane>
     <a-light position="-3 2 1" type="point"></a-light>
