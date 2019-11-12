@@ -10,7 +10,7 @@
     <script src="./blocks/blocks.js"></script>
 </head>
 <body>
-<a-scene physics="iterations:100">
+<a-scene physics="iterations: 20; driver: worker; maxInterval: 10; ">
     <a-assets>
         <a-mixin id="cube" geometry="primitive: box; width: 0.25; height: 0.25; depth: 0.25"
         hoverable grabbable stretchable draggable
