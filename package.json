@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/zodywoolsey/A-Blocks#readme",
   "dependencies": {
+    "ammo.js": "github:mozillareality/ammo.js#hubs/master",
     "blockly": "^2.20190722.1",
     "express": "^4.17.1",
     "split": "^1.0.1",
