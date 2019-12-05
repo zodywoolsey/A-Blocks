@@ -1,7 +1,9 @@
 {
   "name": "a-blocks",
   "version": "0.0.1",
-  "description": "Scratch-style front to generate A-Frame VR experiences.",
+  "description": `Blockly+Aframe = Block based VR tool.
+    For teaching kids how to code, have a better understanding of 3d spaces, and the mechanics of a VR environment/toolset.
+    We want the next generation to be ready for the quickly approaching time when traditional computers are replaced by AR devices.`,
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,14 +24,23 @@
     "scratch",
     "youth",
     "education",
-    "kids"
+    "kids",
+    'teaching',
+    'three',
+    'js',
+    'javascript',
+    'three.js',
+    'webvr',
+    'web',
+    'blocks',
+    'learning',
   ],
   "author": "Zody Woolsey/Rich White",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zodywoolsey/A-Blocks/issues"
+    "url": "https://github.com/zodywoolsey/vrblocks/issues"
   },
-  "homepage": "https://github.com/zodywoolsey/A-Blocks#readme",
+  "homepage": "https://github.com/zodywoolsey/vrblocks#readme",
   "dependencies": {
     "ammo.js": "github:mozillareality/ammo.js#hubs/master",
     "blockly": "^2.20190722.1",
