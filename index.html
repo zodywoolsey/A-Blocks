@@ -14,22 +14,32 @@
 <body>
 <a-scene physics="driver: ammo; iterations: 40">
     <a-sky color="#964"></a-sky>
-    <a-box position="0 1 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 2 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 3 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 4 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 5 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 6 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 7 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 8 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 9 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 10 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
-    <a-box position="0 11 -5" ammo-body="type: dynamic" ammo-shape="type: box"></a-box>
+    <a-entity laser-controls="hand: left" raycaster="objects: .laserCollide"></a-entity>
+    <a-entity laser-controls="hand: right" raycaster="objects: .laserCollide"></a-entity>
+    <!-- <a-box position="0 1 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 2 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 3 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 4 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 5 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box> -->
+    <a-box position="0 6 -5" ammo-body="type: dynamic; gravity: 0 -1 0;" ammo-shape="type: box" class="laserCollide click"></a-box>
+    <!-- <a-box position="0 7 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 8 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 9 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 10 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box>
+    <a-box position="0 11 -5" ammo-body="type: dynamic" ammo-shape="type: box" class="laserCollide"></a-box> -->
     <a-box class='floor' scale="1000 1000 0" rotation="-90 0 0" position="0 -1 0" ammo-body="type: kinematic" ammo-shape=""></a-box>
     <a-light position="-3 2 1" type="point"></a-light>
 </a-scene>
 </body>
 <script>
-    setTimeout( ()=>{ document.querySelector('.floor').setAttribute('position',' 0 -.9 0') },2000 )
+    
+    clickBox = document.querySelector('.click');
+    clickBox.addEventListener('click', (e)=>{
+        let force = new Ammo.btVector3(0, 100, 0);
+        let pos = new Ammo.btVector3(e.target.body.el.object3D.position.x, e.target.body.el.object3D.position.y, e.target.body.el.object3D.position.z);
+        e.target.body.applyForce(force);
+        Ammo.destroy(force);
+        Ammo.destroy(pos);
+    })
 </script>
 </html>
